@@ -11,7 +11,6 @@ export default function reducer(state = initState, action) {
     case RESET_COORD: {
       return initState;
     }
-
     default:
       return state;
   }

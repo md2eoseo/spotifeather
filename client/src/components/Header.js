@@ -10,14 +10,20 @@ function Header() {
   const setCoordFromDevice = (lat, long) => dispatch(setCoord({ lat, long }));
   const setCurrentWeather = weather => dispatch(setWeather(weather));
 
-  // 좌표 불러오기
-  useEffect(() => {
+  const getCoord = () => {
     navigator.geolocation.getCurrentPosition(function (position) {
       let lat = position.coords.latitude.toFixed(4);
       let long = position.coords.longitude.toFixed(4);
       setCoordFromDevice(lat, long);
       console.log('좌표 불러오기');
     });
+  };
+
+  // 좌표 불러오기
+  useEffect(() => {
+    if (coord.lat === 0 && coord.long === 0) {
+      getCoord();
+    }
   }, []);
 
   // 날씨 불러오기

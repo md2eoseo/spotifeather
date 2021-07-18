@@ -1,5 +1,5 @@
-export const SET_COORD = 'location/SET_COORD';
-export const RESET_COORD = 'location/RESET_COORD';
+export const SET_COORD = 'coord/SET_COORD';
+export const RESET_COORD = 'coord/RESET_COORD';
 
 export const setCoord = coord => ({
   type: SET_COORD,

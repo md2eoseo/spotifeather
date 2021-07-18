@@ -5,7 +5,7 @@ const querystring = require('querystring');
 
 const client_id = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const client_secret = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
-const redirect_uri = process.env.REACT_APP_REDIRECT_URI;
+const redirect_uri = process.env.NODE_ENV !== 'production' ? process.env.REACT_APP_DEV_REDIRECT_URI : process.env.REACT_APP_REDIRECT_URI;
 
 var generateRandomString = function (length) {
   var text = '';
