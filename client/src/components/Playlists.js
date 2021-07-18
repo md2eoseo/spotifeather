@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Playlist from './Playlist';
+import ReactLoading from 'react-loading';
 
 function Playlists() {
   const playlists = useSelector(state => state.playlists);
   const [page, setPage] = useState(playlists.length);
-  return (
+  return playlists.length !== 0 ? (
     <div className="playlists">
       <button
         className="pageBtn"
@@ -27,6 +28,8 @@ function Playlists() {
         <span>{'>'}</span>
       </button>
     </div>
+  ) : (
+    <ReactLoading type="bars" color="#fff" width="120px" height="60px" />
   );
 }
 

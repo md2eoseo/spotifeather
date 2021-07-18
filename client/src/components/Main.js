@@ -13,12 +13,10 @@ function Main() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const weather = useSelector(state => state.weather);
-  const playlists = useSelector(state => state.playlists);
   const setAccessTokenWithCurrentUser = token => dispatch(setAccessToken(token));
   const setPlaylistsWithRecent = playlists => dispatch(setPlaylists(playlists));
 
   useEffect(() => {
-    console.log(playlists[0]);
     if (accessToken) setAccessTokenWithCurrentUser(accessToken);
   }, []);
 

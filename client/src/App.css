@@ -7,22 +7,36 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
+  font-size: 24px;
   color: white;
 }
 
 .header {
   background-color: transparent;
-  min-height: 10vh;
+  min-height: 80px;
   padding: 0 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.weather {
+.weather,
+.weather > div {
   display: flex;
   align-items: center;
+}
+
+.locationBtn {
+  width: 36px;
+  height: 36px;
+  background-size: cover;
+  background-image: url(./icons/ic_location_searching_48px.svg);
+}
+.locationBtn:hover {
+  background-image: url(./icons/ic_my_location_48px.svg);
+}
+.locationBtn:disabled {
+  opacity: 50%;
 }
 
 .main {
@@ -71,7 +85,7 @@
 }
 
 .pageBtn {
-  height: 100%;
+  height: 25%;
   width: 100px;
   outline: none;
   transition: cubic-bezier(0.075, 0.82, 0.165, 1) 1.4s;
