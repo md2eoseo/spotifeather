@@ -1,12 +1,11 @@
-export const SET_USER = 'user/SET_USER';
 export const SET_ACCESS_TOKEN = 'user/SET_ACCESS_TOKEN';
+export const SET_ACCESS_TOKEN_INVALID = 'user/SET_ACCESS_TOKEN_INVALID';
 
-export const setUser = user => ({
-  type: SET_USER,
-  payload: user,
+export const setAccessToken = payload => ({
+  type: SET_ACCESS_TOKEN,
+  payload,
 });
 
-export const setAccessToken = token => ({
-  type: SET_ACCESS_TOKEN,
-  payload: token,
+export const setAccessTokenInvalid = () => ({
+  type: SET_ACCESS_TOKEN_INVALID,
 });

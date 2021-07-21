@@ -1,26 +1,36 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setAccessToken } from './actions/userActions';
+import qs from 'querystring';
 import './App.css';
 import Header from './components/Header';
-import configureStore from './configureStore';
-import { Provider } from 'react-redux';
 import Main from './components/Main';
 
-function App(props) {
-  const store = configureStore({
-    coord: { lat: 0, long: 0 },
-    weather: { id: 0, main: '', description: '', icon: '', place: '', temp: 0, sunrise: 0, sunset: 0 },
-    user: {},
-    playlists: [],
-  });
+function App() {
+  const { search } = useLocation();
+  const { accessToken } = qs.parse(search.substr(1));
+  const dispatch = useDispatch();
+  const setAccessTokenWithCurrentUser = payload => dispatch(setAccessToken(payload));
+
+  useEffect(() => {
+    if (accessToken) {
+      setAccessTokenWithCurrentUser({ accessToken, accessTokenValid: true });
+    } else {
+      const localStorageAccessToken = window.localStorage.getItem('accessToken');
+      if (localStorageAccessToken) {
+        setAccessTokenWithCurrentUser({ accessToken: localStorageAccessToken, accessTokenValid: true });
+      }
+    }
+  }, []);
 
   return (
-    <Provider store={store}>
-      <div className="App">
-        <div className="bg">
-          <Header />
-          <Main />
-        </div>
+    <div className="App">
+      <div className="bg">
+        <Header />
+        <Main />
       </div>
-    </Provider>
+    </div>
   );
 }
 

@@ -11,10 +11,10 @@ function Login() {
           qs.stringify({
             response_type: 'code',
             client_id: process.env.REACT_APP_SPOTIFY_CLIENT_ID,
-            scope: scope,
             redirect_uri:
               process.env.NODE_ENV !== 'production' ? process.env.REACT_APP_DEV_REDIRECT_URI : process.env.REACT_APP_REDIRECT_URI,
-            state: state,
+            scope,
+            state,
           });
       });
   };

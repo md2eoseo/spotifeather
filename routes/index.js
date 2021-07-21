@@ -19,13 +19,12 @@ var generateRandomString = function (length) {
 
 var stateKey = 'spotify_auth_state';
 
-router.get('/', (req, res) => res.json({ username: 'Seongtae~~~' }));
-
 router.get('/login', function (req, res) {
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
 
-  var scope = 'user-read-private user-read-email';
+  var scope =
+    'user-read-private user-read-email streaming user-read-playback-state user-modify-playback-state user-library-read user-library-modify';
   return res.json({ state, scope });
   // res.redirect(
   //   'https://accounts.spotify.com/authorize?' +
@@ -84,8 +83,8 @@ router.get('/callback', function (req, res) {
         res.redirect(
           '/?' +
             querystring.stringify({
-              access_token: access_token,
-              refresh_token: refresh_token,
+              accessToken: access_token,
+              refreshToken: refresh_token,
             })
         );
       } else {

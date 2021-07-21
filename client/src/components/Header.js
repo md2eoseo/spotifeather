@@ -17,12 +17,18 @@ function Header() {
   const getCoord = () => {
     setLoading(true);
     resetPL();
-    navigator.geolocation.getCurrentPosition(function (position) {
-      let lat = position.coords.latitude.toFixed(4);
-      let long = position.coords.longitude.toFixed(4);
-      setCoordFromDevice(lat, long);
-      console.log('좌표 불러오기');
-    });
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        let lat = position.coords.latitude.toFixed(4);
+        let long = position.coords.longitude.toFixed(4);
+        setCoordFromDevice(lat, long);
+        console.log('좌표 불러오기');
+      },
+      error => {
+        setLoading(false);
+        console.log(error);
+      }
+    );
   };
 
   // 좌표 불러오기
@@ -57,8 +63,14 @@ function Header() {
   }, [coord]);
 
   return (
-    <header className="header">
-      <div>Spotifeather</div>
+    <header>
+      <div
+        onClick={() => {
+          window.location.href = '/';
+        }}
+      >
+        Spotifeather
+      </div>
       <div className="weather">
         {loading ? (
           <ReactLoading type="bubbles" color="#fff" width="100px" />
