@@ -82,6 +82,7 @@ main {
   min-width: 640px;
   min-height: 320px;
   border: none;
+  align-self: baseline;
 }
 
 .pageBtn {
@@ -96,4 +97,9 @@ main {
 }
 .pageBtn:hover {
   transform: scale(1.4);
+}
+
+.PlayerRSWP {
+  position: fixed;
+  bottom: 0;
 }
