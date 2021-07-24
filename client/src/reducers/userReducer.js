@@ -1,4 +1,4 @@
-import { SET_ACCESS_TOKEN, SET_ACCESS_TOKEN_INVALID } from '../actions/userActions';
+import { RESET_USER, SET_ACCESS_TOKEN, SET_ACCESS_TOKEN_INVALID } from '../actions/userActions';
 
 const initState = { accessToken: null, accessTokenValid: false };
 
@@ -12,6 +12,10 @@ export default function reducer(state = initState, action) {
     case SET_ACCESS_TOKEN_INVALID: {
       window.localStorage.removeItem('accessToken');
       return { ...state, ...payload };
+    }
+    case RESET_USER: {
+      window.localStorage.removeItem('accessToken');
+      return { ...initState };
     }
     default:
       return state;

@@ -4,15 +4,22 @@ import { setCoord } from '../actions/coordActions';
 import { resetPlaylists } from '../actions/playlistsActions';
 import { setWeather } from '../actions/weatherActions';
 import ReactLoading from 'react-loading';
+import { resetUser } from '../actions/userActions';
 
 function Header() {
   const dispatch = useDispatch();
   const coord = useSelector(state => state.coord);
   const weather = useSelector(state => state.weather);
+  const user = useSelector(state => state.user);
   const [loading, setLoading] = useState(false);
   const setCoordFromDevice = (lat, long) => dispatch(setCoord({ lat, long }));
   const setCurrentWeather = weather => dispatch(setWeather(weather));
   const resetPL = () => dispatch(resetPlaylists());
+
+  const logout = () => {
+    dispatch(resetUser());
+    window.location.href = '/';
+  };
 
   const getCoord = () => {
     setLoading(true);
@@ -82,6 +89,7 @@ function Header() {
           </div>
         )}
         <button className="locationBtn" onClick={getCoord} disabled={loading}></button>
+        {user.accessTokenValid && <button className="logoutBtn" onClick={logout}></button>}
       </div>
     </header>
   );

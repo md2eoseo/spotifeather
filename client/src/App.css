@@ -39,6 +39,17 @@ header {
   opacity: 50%;
 }
 
+.logoutBtn {
+  margin-left: 8px;
+  width: 36px;
+  height: 36px;
+  background-size: cover;
+  background-image: url(./icons/ic_exit_to_app_48px.svg);
+}
+.logoutBtn:hover {
+  opacity: 80%;
+}
+
 main {
   width: 100vw;
   height: 90vh;
