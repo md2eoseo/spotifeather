@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 const store = configureStore({
   coord: { lat: 0, long: 0 },
   weather: { id: 0, main: '', description: '', icon: '', place: '', temp: 0, sunrise: 0, sunset: 0 },
-  user: { accessToken: null, accessTokenValid: false },
+  user: { accessToken: null, refreshToken: null },
   playlists: [],
 });
 

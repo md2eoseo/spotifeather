@@ -1,16 +1,32 @@
+import qs from 'querystring';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPlaylists } from '../actions/playlistsActions';
 import Playlists from './Playlists';
 import Login from './Login';
-import { setAccessTokenInvalid } from '../actions/userActions';
+import { setToken } from '../actions/userActions';
 
 function Main() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const weather = useSelector(state => state.weather);
-  const accessTokenIsInvalid = () => dispatch(setAccessTokenInvalid());
   const setPlaylistsWithRecent = playlists => dispatch(setPlaylists(playlists));
+  const setUserToken = payload => dispatch(setToken(payload));
+
+  const refreshUserToken = () => {
+    console.log('Refresh accessToken!!');
+    fetch('api/refresh', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ refreshToken: user.refreshToken }),
+    }).then(res => {
+      const { url } = res;
+      const { accessToken } = qs.parse(url.split('?')[1]);
+      setUserToken({ accessToken });
+    });
+  };
 
   // 날씨에 맞는 플레이리스트 검색어 랜덤 선택
   const chooseCategoryTerm = () => {
@@ -33,7 +49,7 @@ function Main() {
 
   // 플레이리스트 불러오기
   useEffect(() => {
-    if (user.accessTokenValid) {
+    if (user.accessToken) {
       if (user.accessToken) {
         const term = chooseCategoryTerm(weather);
         fetch(`https://api.spotify.com/v1/search?q=${term}&type=playlist&limit=4`, {
@@ -41,7 +57,7 @@ function Main() {
         })
           .then(res => {
             if (!res.ok) {
-              accessTokenIsInvalid();
+              return refreshUserToken();
             }
             return res.json();
           })
@@ -54,11 +70,11 @@ function Main() {
           });
       }
     }
-  }, [weather]);
+  }, [weather, user.accessToken]);
 
   return (
     <main>
-      {!user.accessTokenValid ? (
+      {!user.accessToken ? (
         <div className="notLoggedIn">
           <p>Get playlists that fit with current weather!</p>
           <Login />

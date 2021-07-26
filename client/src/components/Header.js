@@ -89,7 +89,7 @@ function Header() {
           </div>
         )}
         <button className="locationBtn" onClick={getCoord} disabled={loading}></button>
-        {user.accessTokenValid && <button className="logoutBtn" onClick={logout}></button>}
+        {user.accessToken && <button className="logoutBtn" onClick={logout}></button>}
       </div>
     </header>
   );
