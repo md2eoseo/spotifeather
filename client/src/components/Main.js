@@ -52,7 +52,7 @@ function Main() {
     if (user.accessToken) {
       if (user.accessToken) {
         const term = chooseCategoryTerm(weather);
-        fetch(`https://api.spotify.com/v1/search?q=${term}&type=playlist&limit=4`, {
+        fetch(`https://api.spotify.com/v1/search?q=${term}&type=playlist&limit=10`, {
           headers: { Authorization: `Bearer ${user.accessToken}` },
         })
           .then(res => {
@@ -62,7 +62,8 @@ function Main() {
             return res.json();
           })
           .then(data => {
-            setPlaylistsWithRecent(data?.playlists?.items);
+            const newPlaylists = data?.playlists?.items.filter(item => item !== null)
+            setPlaylistsWithRecent(newPlaylists);
             console.log('플레이리스트 불러오기');
           })
           .catch(error => {
