@@ -8,10 +8,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-    "dev:server": "npm start",
-    "dev:client": "cd client && npm start",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "app": "concurrently \"npm start\" \"npm run start:client\"",
+    "start:client": "cd client && npm start",
+    "build:client": "cd client && npm install --omit=dev --legacy-peer-deps && npm run build"
   },
   "keywords": [],
   "author": "",
