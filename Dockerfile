@@ -1,3 +1,10 @@
+ARG NODE_ENV
+ARG REACT_APP_OPEN_WEATHER_APP_ID
+ARG REACT_APP_SPOTIFY_CLIENT_ID
+ARG REACT_APP_SPOTIFY_CLIENT_SECRET
+ARG REACT_APP_DEV_REDIRECT_URI
+ARG REACT_APP_REDIRECT_URI
+
 FROM node:16-alpine
 
 WORKDIR /app
@@ -8,7 +15,7 @@ COPY . .
 
 RUN npm ci --omit=dev
 
-RUN cd client && npm install --omit=dev --legacy-peer-deps && npm run build
+RUN npm run build:client
 
 CMD ["npm", "run", "app"]
 
