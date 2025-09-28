@@ -15,7 +15,11 @@ COPY . .
 
 RUN npm ci --omit=dev
 
+# /client에 .env 파일이 있는지 확인
+RUN ls /app/client/.env
+
 RUN npm run build:client
 
 CMD ["npm", "run", "app"]
 
+RUN ls /app/client/.env
